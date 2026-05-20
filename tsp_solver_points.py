@@ -236,22 +236,18 @@ for r in range(2):
         # draw points
         for i in range(len(points)):
             axs[r,c].scatter(points[i]['x'], points[i]['y'], color='b', marker='.')
-            axs[r,c].scatter(points[i]['x'], points[i]['y'], color='b', marker='.')
 
         # draw route
         for i in range(len(points)-1):
-            axs[r,c].plot([points[i]['x'], points[i+1]['x']], [points[i]['y'], points[i+1]['y']], color='r')
             axs[r,c].plot([points[i]['x'], points[i+1]['x']], [points[i]['y'], points[i+1]['y']], color='r')
 
         # draw path from routeStartPoint
         axs[r,c].scatter(routeStartPoint[r][c][0], routeStartPoint[r][c][1], color='b', marker='>')
         axs[r,c].plot([routeStartPoint[r][c][0], points[0]['x']], [routeStartPoint[r][c][1], points[0]['y']], color='r', linestyle='dashed')
-        axs[r,c].plot([routeStartPoint[r][c][0], points[0]['x']], [routeStartPoint[r][c][1], points[0]['y']], color='r', linestyle='dashed')
 
         # draw path to routeEndPoint
         if routeEndPoint[r][c] is not None:
             axs[r,c].scatter(routeEndPoint[r][c][0], routeEndPoint[r][c][1], color='b', marker='s')
-            axs[r,c].plot([points[-1]['x'], routeEndPoint[r][c][0]], [points[-1]['y'], routeEndPoint[r][c][1]], color='r', linestyle='dashed')
             axs[r,c].plot([points[-1]['x'], routeEndPoint[r][c][0]], [points[-1]['y'], routeEndPoint[r][c][1]], color='r', linestyle='dashed')
 
         fig.suptitle('Number of points: ' + str(len(points)))
