@@ -7,7 +7,7 @@ def tsp_solver_points(points, routeStartPoint=None, routeEndPoint=None):
 
     # STEP 1: Adds the routeStartPoint (it will be deleted at the end)
     if routeStartPoint is None:
-        points.insert(0,{'x': points[0]['x'], 'y': points[0]['y']})
+        points.insert(0,{'x': 0, 'y': 0})
     else:
         points.insert(0,{'x': routeStartPoint[0], 'y': routeStartPoint[1]})
 
