@@ -22,6 +22,7 @@ tsp_solver_tunnels()
 -------------------
 Imagine traveling salesman has to go through a set of tunnels (or portals), each exactly once.
 Each tunnel has an entry point where salesman enters and an exit point where salesman pops out.
+Entry point and exit point can be the same.
 
 * **routeStartPoint** specifies where ROUGHLY the route should start. You can think of this as salesmans initial location (at the beginning of the journey).
 This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
@@ -29,4 +30,4 @@ This parameter is mandatory. You may leave it blank, but then solver will set it
 * **routeEndPoint** specifies where ROUGHLY the route should end. You can think of this as where salesman wants to go after the journey is completed.
 This parameter is optional. If not defined (let's say salesman doesn't care where to finish the journey), solver will pick one to ensure good route efficiency.
 
-* **allowFlipping** defines if salesman is allowed to travel through tunnels in the opposite direction.
+* **allowFlipping** defines if salesman is allowed to travel through tunnels in the opposite direction. Setting this to True usually results in much shorter route.
