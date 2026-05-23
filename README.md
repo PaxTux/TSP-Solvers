@@ -31,3 +31,5 @@ This parameter is mandatory. You may leave it blank, but then solver will set it
 This parameter is optional. If not defined (let's say salesman doesn't care where to finish the journey), solver will pick one to ensure good route efficiency.
 
 * **allowFlipping** defines if salesman is allowed to travel through tunnels in the opposite direction. Setting this to True usually results in much shorter route.
+
+Note that in examples below tunnels are drawn as (blue) straight lines, in reality tunnels can be much more complex. The function doesn't care how a tunnel looks like, it just cares about entry point and exit point.
