@@ -24,6 +24,9 @@ Imagine traveling salesman has to go through a set of tunnels (or portals), each
 Each tunnel has an entry point where salesman enters and an exit point where salesman pops out.
 Entry point and exit point can be the same.
 
+
+In examples below tunnels are drawn as (blue) straight lines but in reality tunnels can be much more complex. The function doesn't care how a tunnel looks like, it just cares about entry point and exit point.
+
 * **routeStartPoint** specifies where ROUGHLY the route should start. You can think of this as salesmans initial location (at the beginning of the journey).
 This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
 
@@ -32,4 +35,8 @@ This parameter is optional. If not defined (let's say salesman doesn't care wher
 
 * **allowFlipping** defines if salesman is allowed to travel through tunnels in the opposite direction. Setting this to True usually results in much shorter route.
 
-Note that in examples below tunnels are drawn as (blue) straight lines, in reality tunnels can be much more complex. The function doesn't care how a tunnel looks like, it just cares about entry point and exit point.
+(note that first and second example have same tunnels generated, but second example has allowFlipping set to False. Since all tunnels are oriented from left to right, salesman will fulfill this requirement in second example.)
+
+<img src="/images/tsp_solver_tunnels_Hori_AF=T.png" width="800"/>
+<img src="/images/tsp_solver_tunnels_Hori_AF=F.png" width="800"/>
+<img src="/images/tsp_solver_tunnels_Rand.png" width="800"/>
