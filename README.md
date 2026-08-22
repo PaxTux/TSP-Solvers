@@ -6,11 +6,11 @@ tsp_solver_points()
 -------------------
 Imagine traveling salesman has to visit a set of points, each exactly once.
 
-* **routeStartPoint** specifies where ROUGHLY the route should start. You can think of this as salesmans initial location (at the beginning of the journey).
-This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
+* **routeStartPoint** is a point that specifies where roughly the route should start. You can think of this as salesmans initial location (at the beginning of the journey). This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
 
-* **routeEndPoint** specifies where ROUGHLY the route should end. You can think of this as where salesman wants to go after the journey is completed.
-This parameter is optional. If not defined (let's say salesman doesn't care where to finish the journey), solver will pick one to ensure good route efficiency.
+* **routeEndPoint** is a point that specifies where roughly the route should end. You can think of this as where salesman wants to go after the journey is completed. This parameter is optional.
+
+* **attractor** TBD
 
 <img src="/images/tsp_solver_points_Eq10.png" width="800"/>
 <img src="/images/tsp_solver_points_Eq45.png" width="800"/>
@@ -27,11 +27,9 @@ Entry point and exit point can be the same.
 
 In examples below tunnels are drawn as (blue) straight lines but in reality tunnels can be much more complex. The function doesn't care how a tunnel looks like, it just cares about entry point and exit point.
 
-* **routeStartPoint** specifies where ROUGHLY the route should start. You can think of this as salesmans initial location (at the beginning of the journey).
-This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
+* **routeStartPoint** is a point that specifies where roughly the route should start. You can think of this as salesmans initial location (at the beginning of the journey). This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
 
-* **routeEndPoint** specifies where ROUGHLY the route should end. You can think of this as where salesman wants to go after the journey is completed.
-This parameter is optional. If not defined (let's say salesman doesn't care where to finish the journey), solver will pick one to ensure good route efficiency.
+* **routeEndPoint** is a point that specifies where roughly the route should end. You can think of this as where salesman wants to go after the journey is completed. This parameter is optional.
 
 * **allowFlipping** defines if salesman is allowed to travel through tunnels in the opposite direction. Setting this to True usually results in much shorter route.
 
