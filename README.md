@@ -16,6 +16,12 @@ Imagine traveling salesman has to visit a set of points, each exactly once.
 
 * **routeEndPoint** is a point that specifies where roughly the route should end. You can think of this as where salesman wants to go after the journey is completed. This parameter is optional.
 
+  <img src="/images/tsp_solver_points_EP_Eq10.png" width="600"/>
+  <img src="/images/tsp_solver_points_EP_Eq45.png" width="600"/>
+  <img src="/images/tsp_solver_points_EP_EqHx.png" width="600"/>
+  <img src="/images/tsp_solver_points_EP_Pola.png" width="600"/>
+  <img src="/images/tsp_solver_points_EP_Rand.png" width="600"/>
+
 * **attractor** TBD
 
 
