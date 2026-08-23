@@ -24,6 +24,11 @@ Imagine traveling salesman has to visit a set of points, each exactly once.
 
 * **attractor** TBD
 
+  <img src="/images/tsp_solver_points_A_Eq10.png" width="600"/>
+  <img src="/images/tsp_solver_points_A_Eq45.png" width="600"/>
+  <img src="/images/tsp_solver_points_A_EqHx.png" width="600"/>
+  <img src="/images/tsp_solver_points_A_Pola.png" width="600"/>
+  <img src="/images/tsp_solver_points_A_Rand.png" width="600"/>
 
 
 tsp_solver_tunnels()
