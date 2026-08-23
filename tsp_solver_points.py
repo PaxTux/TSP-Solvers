@@ -246,8 +246,12 @@ for r in range(2):
             axs[r,c].plot([points[i]['x'], points[i+1]['x']], [points[i]['y'], points[i+1]['y']], color='r')
 
         # draw path from routeStartPoint
-        axs[r,c].scatter(routeStartPoint[r][c][0], routeStartPoint[r][c][1], color='b', marker='>')
-        axs[r,c].plot([routeStartPoint[r][c][0], points[0]['x']], [routeStartPoint[r][c][1], points[0]['y']], color='r', linestyle='dashed')
+        if routeStartPoint[r][c] is None:
+            axs[r,c].scatter(0, 0, color='b', marker='>')
+            axs[r,c].plot([0, points[0]['x']], [0, points[0]['y']], color='r', linestyle='dashed')
+        else:
+            axs[r,c].scatter(routeStartPoint[r][c][0], routeStartPoint[r][c][1], color='b', marker='>')
+            axs[r,c].plot([routeStartPoint[r][c][0], points[0]['x']], [routeStartPoint[r][c][1], points[0]['y']], color='r', linestyle='dashed')
 
         # draw path to routeEndPoint
         if routeEndPoint[r][c] is not None:
