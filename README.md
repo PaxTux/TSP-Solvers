@@ -8,15 +8,17 @@ Imagine traveling salesman has to visit a set of points, each exactly once.
 
 * **routeStartPoint** is a point that specifies where roughly the route should start. You can think of this as salesmans initial location (at the beginning of the journey). This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
 
+  <img src="/images/tsp_solver_points_SP_Eq10.png" width="600"/>
+  <img src="/images/tsp_solver_points_SP_Eq45.png" width="600"/>
+  <img src="/images/tsp_solver_points_SP_EqHx.png" width="600"/>
+  <img src="/images/tsp_solver_points_SP_Pola.png" width="600"/>
+  <img src="/images/tsp_solver_points_SP_Rand.png" width="600"/>
+
 * **routeEndPoint** is a point that specifies where roughly the route should end. You can think of this as where salesman wants to go after the journey is completed. This parameter is optional.
 
 * **attractor** TBD
 
-<img src="/images/tsp_solver_points_Eq10.png" width="800"/>
-<img src="/images/tsp_solver_points_Eq45.png" width="800"/>
-<img src="/images/tsp_solver_points_EqHx.png" width="800"/>
-<img src="/images/tsp_solver_points_Pola.png" width="800"/>
-<img src="/images/tsp_solver_points_Rand.png" width="800"/>
+
 
 tsp_solver_tunnels()
 -------------------
