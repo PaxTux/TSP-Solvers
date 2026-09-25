@@ -26,9 +26,10 @@ Imagine traveling salesman has to visit a set of points, each exactly once.
   <img src="/images/tsp_solver_points_EP_Pola.png" width="600"/>
   <img src="/images/tsp_solver_points_EP_Rand.png" width="600"/>
 
-* **attractor** is a point that defines behaviour on a (equidistant) grid. Salesman will try to somehow spiral around it.  
+* **attractor** is a point that defines behaviour on a (equidistant) grid.  
+  Salesman will try to somehow spiral around it.  
   By setting its Y component very far away you tell salesman to prefer moving in X direction (and vice versa).  
-  Its value might sometimes have minimal or even no effect, for example on a random arrangement of points.  
+  Its value might have minimal or no effect, for example on a random arrangement of points.  
   This parameter is mandatory. You may leave it blank, but then solver will set it to routeStartPoint.
 
   <img src="/images/tsp_solver_points_A_Eq10.png" width="600"/>
