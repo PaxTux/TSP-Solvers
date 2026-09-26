@@ -11,7 +11,7 @@ def tsp_solver_points(points, routeStartPoint=None, routeEndPoint=None, attracto
     if attractor is None:
         attractor = [route[0]['x'], route[0]['y']]
 
-    # STEP 2: Applies nearest neighbour algorithm
+    # STEP 2: Nearest neighbour algorithm
     while points:
         distBest = float('inf')
         for neighbour in points:
@@ -43,12 +43,14 @@ def tsp_solver_points(points, routeStartPoint=None, routeEndPoint=None, attracto
 
     # STEP 4: Additional improvement of the route
     lengthRoute = len(route)
-    
+
     limitRelocationI = lengthRoute - 1
+    limitRelocationJ = lengthRoute
     limitReorderI = lengthRoute - 2
     limitReorderJ = lengthRoute + 1
     if routeEndPoint is not None:
         limitRelocationI -= 1
+        limitRelocationJ -= 1
         limitReorderI -= 1
         limitReorderJ -= 1
 
@@ -56,12 +58,12 @@ def tsp_solver_points(points, routeStartPoint=None, routeEndPoint=None, attracto
 
     while True:
 
-        # STEP 4.1: Applies relocation
+        # STEP 4.1: Relocation backward
         if lastImprovementAtStep == 1: break
         improvementFound = True
         while improvementFound:
             improvementFound = False
-            # let's try to relocate the i-th point...
+            # let's try to relocate the i-th point backward...
             for i in range(limitRelocationI,0,-1):
                 deltaBest = 0
                 subRouteLengthCurrent = math.dist([route[i-1]['x'],route[i-1]['y']], [route[i]['x'],route[i]['y']])
@@ -84,7 +86,7 @@ def tsp_solver_points(points, routeStartPoint=None, routeEndPoint=None, attracto
                     improvementFound = True
                     lastImprovementAtStep = 1
 
-        # STEP 4.2: Applies reorder (2-opt)
+        # STEP 4.2: Reorder (2-opt)
         if lastImprovementAtStep == 2: break
         improvementFound = True
         while improvementFound:
@@ -111,6 +113,35 @@ def tsp_solver_points(points, routeStartPoint=None, routeEndPoint=None, attracto
                     improvementFound = True
                     lastImprovementAtStep = 2
 
+        # STEP 4.3: Relocation forward
+        if lastImprovementAtStep == 3: break
+        improvementFound = True
+        while improvementFound:
+            improvementFound = False
+            # let's try to relocate the i-th point forward...
+            for i in range(limitRelocationI,0,-1):
+                deltaBest = 0
+                subRouteLengthCurrent = math.dist([route[i-1]['x'],route[i-1]['y']], [route[i]['x'],route[i]['y']])
+                if i + 1 < lengthRoute:
+                    subRouteLengthCurrent += math.dist([route[i]['x'],route[i]['y']], [route[i+1]['x'],route[i+1]['y']])
+                    subRouteLengthCurrent -= math.dist([route[i-1]['x'],route[i-1]['y']], [route[i+1]['x'],route[i+1]['y']])
+                # ...after the j-th point...
+                for j in range(i+1,limitRelocationJ):
+                    subRouteLengthNew = math.dist([route[j]['x'],route[j]['y']], [route[i]['x'],route[i]['y']])
+                    if j + 1 < lengthRoute:
+                        subRouteLengthNew += math.dist([route[i]['x'],route[i]['y']], [route[j+1]['x'],route[j+1]['y']])
+                        subRouteLengthNew -= math.dist([route[j]['x'],route[j]['y']], [route[j+1]['x'],route[j+1]['y']])
+                    delta = subRouteLengthNew - subRouteLengthCurrent
+                    # ...and see if there is an improvement
+                    if delta < deltaBest - 1e-6:
+                        # improvement found!
+                        deltaBest = delta
+                        jBest = j
+                if deltaBest < 0:
+                    route.insert(jBest, route.pop(i)) # relocate the i-th point forward (after jBest-th point)
+                    improvementFound = True
+                    lastImprovementAtStep = 3
+
         if lastImprovementAtStep == 0: break # no additional improvementes could be made
 
     # STEP 5: Deletes temporary start and end point
@@ -124,10 +155,11 @@ def tsp_solver_points(points, routeStartPoint=None, routeEndPoint=None, attracto
 # --- code below this line is just to demonstrate the capability of tsp_solver_points() function ---
 
 import random
-import matplotlib.pyplot as plt
+import copy
 import time
+import matplotlib.pyplot as plt
 
-# STEP 1: Generate list of points (1=generate ; 0=don't generate)
+# STEP 1: Generate the list of points (1=generate ; 0=don't generate)
 genPointsOne1 = 0 # 1 point, random position
 genPointsEq10 = 1 # 100 points, equidistant 10x10 grid
 genPointsEq45 = 0 # 98 points, equidistant grid 45 degree
@@ -135,50 +167,52 @@ genPointsEqHx = 0 # 90 points, equidistant hexagonal grid
 genPointsPola = 0 # 100 points, polar pattern
 genPointsRand = 0 # 100 points, random position
 
-points = []
+generatedPoints = []
 
 if genPointsOne1:
-    points.append({'x': 100*random.random(), 'y': 100*random.random()})
+    generatedPoints.append({'x': 100*random.random(), 'y': 100*random.random()})
 
 if genPointsEq10:
     for i in range(10):
         for j in range(10):
-            points.append({'x': 10*i + 5, 'y': 10*j + 5})
+            generatedPoints.append({'x': 10*i + 5, 'y': 10*j + 5})
 
 if genPointsEq45:
     for i in range(7):
         for j in range(7):
-            points.append({'x': 14*i + 5, 'y': 14*j + 5})
-            points.append({'x': 14*i + 12, 'y': 14*j + 12})
+            generatedPoints.append({'x': 14*i + 5, 'y': 14*j + 5})
+            generatedPoints.append({'x': 14*i + 12, 'y': 14*j + 12})
 
 if genPointsEqHx:
     for i in range(5):
         for j in range(9):
-            points.append({'x': 18*i + 10, 'y': 18*j/math.sqrt(3) + 5})
-            points.append({'x': 18*i + 19, 'y': 18*j/math.sqrt(3) + 9/math.sqrt(3) + 5})
+            generatedPoints.append({'x': 18*i + 10, 'y': 18*j/math.sqrt(3) + 5})
+            generatedPoints.append({'x': 18*i + 19, 'y': 18*j/math.sqrt(3) + 9/math.sqrt(3) + 5})
 
 if genPointsPola:
     for i in range(9):
-        points.append({'x': 50 + 5*math.cos(i*2*math.pi/9), 'y': 50 + 5*math.sin(i*2*math.pi/9)})
+        generatedPoints.append({'x': 50 + 5*math.cos(i*2*math.pi/9), 'y': 50 + 5*math.sin(i*2*math.pi/9)})
     for i in range(14):
-        points.append({'x': 50 + 15*math.cos(i*2*math.pi/14), 'y': 50 + 15*math.sin(i*2*math.pi/14)})
+        generatedPoints.append({'x': 50 + 15*math.cos(i*2*math.pi/14), 'y': 50 + 15*math.sin(i*2*math.pi/14)})
     for i in range(19):
-        points.append({'x': 50 + 25*math.cos(i*2*math.pi/19), 'y': 50 + 25*math.sin(i*2*math.pi/19)})
+        generatedPoints.append({'x': 50 + 25*math.cos(i*2*math.pi/19), 'y': 50 + 25*math.sin(i*2*math.pi/19)})
     for i in range(25):
-        points.append({'x': 50 + 35*math.cos(i*2*math.pi/25), 'y': 50 + 35*math.sin(i*2*math.pi/25)})
+        generatedPoints.append({'x': 50 + 35*math.cos(i*2*math.pi/25), 'y': 50 + 35*math.sin(i*2*math.pi/25)})
     for i in range(33):
-        points.append({'x': 50 + 45*math.cos(i*2*math.pi/33), 'y': 50 + 45*math.sin(i*2*math.pi/33)})
+        generatedPoints.append({'x': 50 + 45*math.cos(i*2*math.pi/33), 'y': 50 + 45*math.sin(i*2*math.pi/33)})
 
 if genPointsRand:
     for i in range(100):
-        points.append({'x': 100*random.random(), 'y': 100*random.random()})
+        generatedPoints.append({'x': 100*random.random(), 'y': 100*random.random()})
+
+generatedPoints = random.sample(generatedPoints, len(generatedPoints)) # shuffle the list of points
 
 # STEP 2: Define start point, end point and attractor for each example
 routeStartPoint = [[None for j in range(4)] for i in range(2)]
 routeEndPoint = [[None for j in range(4)] for i in range(2)]
 attractor = [[None for j in range(4)] for i in range(2)]
 
-routeStartPoint[0][0] = [0,0]
+routeStartPoint[0][0] = None
 routeEndPoint[0][0] = None
 attractor[0][0] = None
 
@@ -194,32 +228,29 @@ routeStartPoint[0][3] = [100,50]
 routeEndPoint[0][3] = None
 attractor[0][3] = None
 
-routeStartPoint[1][0] = [0,0]
-routeEndPoint[1][0] = [100,100]
+routeStartPoint[1][0] = None
+routeEndPoint[1][0] = [0,100]
 attractor[1][0] = None
 
-routeStartPoint[1][1] = [0,50]
-routeEndPoint[1][1] = [0,50]
+routeStartPoint[1][1] = None
+routeEndPoint[1][1] = [50,50]
 attractor[1][1] = None
 
-routeStartPoint[1][2] = [50,50]
-routeEndPoint[1][2] = [0,100]
+routeStartPoint[1][2] = None
+routeEndPoint[1][2] = [0,0]
 attractor[1][2] = None
 
-routeStartPoint[1][3] = [100,50]
-routeEndPoint[1][3] = [50,50]
+routeStartPoint[1][3] = None
+routeEndPoint[1][3] = [100,100]
 attractor[1][3] = None
 
 # STEP 3: Find efficient route and plot it
 fig, axs = plt.subplots(2,4)
-sumTime = 0
-sumLength = 0
 
 for r in range(2):
     for c in range(4):
 
-        # shuffle the list of points before sorting
-        points = random.sample(points, len(points))
+        points = copy.deepcopy(generatedPoints)
 
         # run the solver and measure the time needed
         print('Solving row ' + str(r+1) + ', column ' + str(c+1) + '...')
@@ -228,14 +259,12 @@ for r in range(2):
         timeEnd = time.time()
         timeDelta = timeEnd - timeStart
         timeDelta = round(1000 * timeDelta) # convert to miliseconds
-        sumTime += timeDelta
 
         # calculate total length
         totalLength = 0
         for i in range(len(points)-1):
             totalLength += math.dist([points[i]['x'],points[i]['y']], [points[i+1]['x'],points[i+1]['y']])
         totalLength = round(totalLength)
-        sumLength += totalLength
 
         # draw points
         for i in range(len(points)):
@@ -259,11 +288,9 @@ for r in range(2):
             axs[r,c].plot([points[-1]['x'], routeEndPoint[r][c][0]], [points[-1]['y'], routeEndPoint[r][c][1]], color='r', linestyle='dashed')
 
         fig.suptitle('Number of points: ' + str(len(points)))
-        axs[r,c].set_title('SP=' + str(routeStartPoint[r][c]) + ' | EP=' + str(routeEndPoint[r][c]) + ' | t=' + str(timeDelta) + 'ms' + ' | l=' + str(totalLength) + ' | A=' + str(attractor[r][c]), fontsize=10)
+        axs[r,c].set_title('SP=' + str(routeStartPoint[r][c]) + ' | EP=' + str(routeEndPoint[r][c]) + ' | A=' + str(attractor[r][c]) + ' | l=' + str(totalLength) + '@' + str(timeDelta) + 'ms', fontsize=10)
         axs[r,c].set_xlim([-5, 105])
         axs[r,c].set_ylim([-5, 105])
         axs[r,c].set_aspect('equal')
 
-print(sumTime, 'ms')
-print(sumLength)
 plt.show()
