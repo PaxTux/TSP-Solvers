@@ -10,20 +10,20 @@ Imagine traveling salesman has to visit a set of points, each exactly once.
   You can think of this as salesmans initial location (at the beginning of the journey).  
   This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
 
-  <img src="/images/tsp_solver_points_SP_Eq10.png" width="600"/>
-  <img src="/images/tsp_solver_points_SP_Eq45.png" width="600"/>
-  <img src="/images/tsp_solver_points_SP_EqHx.png" width="600"/>
-  <img src="/images/tsp_solver_points_SP_Pola.png" width="600"/>
+  <img src="/images/tsp_solver_points_SP_Eq10.png" width="600"/>\
+  <img src="/images/tsp_solver_points_SP_Eq45.png" width="600"/>\
+  <img src="/images/tsp_solver_points_SP_EqHx.png" width="600"/>\
+  <img src="/images/tsp_solver_points_SP_Pola.png" width="600"/>\
   <img src="/images/tsp_solver_points_SP_Rand.png" width="600"/>
 
 * **routeEndPoint** is a point that specifies where roughly the route should end.  
   You can think of this as where salesman wants to go after the journey is completed.  
   This parameter is optional.
 
-  <img src="/images/tsp_solver_points_EP_Eq10.png" width="600"/>
-  <img src="/images/tsp_solver_points_EP_Eq45.png" width="600"/>
-  <img src="/images/tsp_solver_points_EP_EqHx.png" width="600"/>
-  <img src="/images/tsp_solver_points_EP_Pola.png" width="600"/>
+  <img src="/images/tsp_solver_points_EP_Eq10.png" width="600"/>\
+  <img src="/images/tsp_solver_points_EP_Eq45.png" width="600"/>\
+  <img src="/images/tsp_solver_points_EP_EqHx.png" width="600"/>\
+  <img src="/images/tsp_solver_points_EP_Pola.png" width="600"/>\
   <img src="/images/tsp_solver_points_EP_Rand.png" width="600"/>
 
 * **attractor** is a point that defines behaviour on a (equidistant) grid.  
@@ -32,35 +32,44 @@ Imagine traveling salesman has to visit a set of points, each exactly once.
   Its value might have minimal or no effect, for example on a random arrangement of points.  
   This parameter is mandatory. You may leave it blank, but then solver will set it to routeStartPoint.
 
-  <img src="/images/tsp_solver_points_A_Eq10.png" width="600"/>
-  <img src="/images/tsp_solver_points_A_Eq45.png" width="600"/>
-  <img src="/images/tsp_solver_points_A_EqHx.png" width="600"/>
-  <img src="/images/tsp_solver_points_A_Pola.png" width="600"/>
+  <img src="/images/tsp_solver_points_A_Eq10.png" width="600"/>\
+  <img src="/images/tsp_solver_points_A_Eq45.png" width="600"/>\
+  <img src="/images/tsp_solver_points_A_EqHx.png" width="600"/>\
+  <img src="/images/tsp_solver_points_A_Pola.png" width="600"/>\
   <img src="/images/tsp_solver_points_A_Rand.png" width="600"/>
 
 
 tsp_solver_tunnels()
 -------------------
-Imagine traveling salesman has to go through a set of tunnels (or portals), each exactly once.  
+Imagine traveling salesman has to go through a set of tunnels, each exactly once.  
 Each tunnel has an entry point where salesman enters and an exit point where salesman pops out.  
 Entry point and exit point can be the same.
 
-
-In examples below tunnels are drawn as (blue) straight lines but in reality tunnels can be much more complex. The solver doesn't care how a tunnel looks like, it just cares about entry point and exit point.
+In examples below tunnels are drawn as (blue) straight lines but in reality tunnels can be more complex.  
+The solver doesn't care how a tunnel looks like, it just cares about entry point and exit point.
 
 * **routeStartPoint** is a point that specifies where roughly the route should start.  
   You can think of this as salesmans initial location (at the beginning of the journey).  
   This parameter is mandatory. You may leave it blank, but then solver will set it to x=0;y=0.
 
+  <img src="/images/tsp_solver_tunnels_SP_Hori.png" width="600"/>\
+  <img src="/images/tsp_solver_tunnels_SP_Vert.png" width="600"/>\
+  <img src="/images/tsp_solver_tunnels_SP_Long.png" width="600"/>\
+  <img src="/images/tsp_solver_tunnels_SP_Rand.png" width="600"/>
+
 * **routeEndPoint** is a point that specifies where roughly the route should end.  
   You can think of this as where salesman wants to go after the journey is completed.  
   This parameter is optional.
 
+  <img src="/images/tsp_solver_tunnels_EP_Hori.png" width="600"/>\
+  <img src="/images/tsp_solver_tunnels_EP_Vert.png" width="600"/>\
+  <img src="/images/tsp_solver_tunnels_EP_Long.png" width="600"/>\
+  <img src="/images/tsp_solver_tunnels_EP_Rand.png" width="600"/>
+
 * **allowFlipping** defines if salesman is allowed to travel through tunnels in the opposite direction.  
   Setting this to True usually results in much shorter route.
 
-  (note that first and second example have same tunnels generated, but second example has allowFlipping set to False. Since all tunnels are oriented from left to right, salesman will fulfill this requirement in second example.)
-
-<img src="/images/tsp_solver_tunnels_Hori_AF=T.png" width="800"/>
-<img src="/images/tsp_solver_tunnels_Hori_AF=F.png" width="800"/>
-<img src="/images/tsp_solver_tunnels_Rand.png" width="800"/>
+  <img src="/images/tsp_solver_tunnels_AF_Hori.png" width="400"/>\
+  <img src="/images/tsp_solver_tunnels_AF_Vert.png" width="400"/>\
+  <img src="/images/tsp_solver_tunnels_AF_Long.png" width="400"/>\
+  <img src="/images/tsp_solver_tunnels_AF_Rand.png" width="400"/>
