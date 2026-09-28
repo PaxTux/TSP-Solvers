@@ -224,16 +224,12 @@ import time
 import matplotlib.pyplot as plt
 
 # STEP 1: Generate the list of tunnels (1=generate ; 0=don't generate)
-genTunnelsOne1 = 0 # 1 tunnel, random position
 genTunnelsHori = 1 # 50 tunnels, horizontal pattern
 genTunnelsVert = 0 # 50 tunnels, vertical pattern
 genTunnelsLong = 0 # 20 tunnels, 10 long horizontal and 10 long vertical
 genTunnelsRand = 0 # 20 tunnels, random position
 
 generatedTunnels = []
-
-if genTunnelsOne1:
-    generatedTunnels.append({'startX': 100*random.random(), 'startY': 100*random.random(), 'endX': 100*random.random(), 'endY': 100*random.random()})
 
 if genTunnelsHori:
     for i in range(5):
