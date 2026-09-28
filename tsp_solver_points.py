@@ -160,7 +160,6 @@ import time
 import matplotlib.pyplot as plt
 
 # STEP 1: Generate the list of points (1=generate ; 0=don't generate)
-genPointsOne1 = 0 # 1 point, random position
 genPointsEq10 = 1 # 100 points, equidistant 10x10 grid
 genPointsEq45 = 0 # 98 points, equidistant grid 45 degree
 genPointsEqHx = 0 # 90 points, equidistant hexagonal grid
@@ -168,9 +167,6 @@ genPointsPola = 0 # 100 points, polar pattern
 genPointsRand = 0 # 100 points, random position
 
 generatedPoints = []
-
-if genPointsOne1:
-    generatedPoints.append({'x': 100*random.random(), 'y': 100*random.random()})
 
 if genPointsEq10:
     for i in range(10):
